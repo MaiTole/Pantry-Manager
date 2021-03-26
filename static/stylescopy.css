@@ -1,0 +1,16 @@
+stylescopy.css
+
+.arrtr
+{
+    display: block;
+    table-layout: fixed;
+    width: 200%;
+    overflow: scroll;
+}
+
+arrtbody {
+    display: block;
+    height: 150px;
+    width: 97%;
+    overflow: scroll;
+}

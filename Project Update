@@ -1,0 +1,29 @@
+
+
+This app has the following functionalities:
+
+View Pantry Status
+    > Partially complete, able to view existing items but not including pantry min requirements
+    > Propose to add the latter using union of two SQL tables, need to check how to be done
+    > View of index after adding/editing pantry item/min is not right, does not show latest data
+    > Formatting completed using bootstrap
+
+Add Pantry Item
+    > Completed, SQL working fine
+
+Edit Pantry Item
+    > Completed
+
+Add Min Requirement
+    > Completed, SQL working fine
+
+Edit Min Requirement
+    > Completed
+
+Recipe Search
+    > Partially complete - URL generated, but JSON needs to be translated back into readable, user-friendly data
+
+Shopping List
+    > Not started, need to create a view for viewer to see items to stock up based on pantry min requirements
+    > Propose to create a weekly email to send shopping list to user email
+

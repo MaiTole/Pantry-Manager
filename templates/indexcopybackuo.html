@@ -1,0 +1,156 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Pantry
+{% endblock %}
+
+{% block main %}
+<div class="overflow">
+<table class="table">
+  <tr class="thead">
+    <th colspan="2">Beverages</th>
+  </tr>
+  <tr class="thead">
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  {% for b in beverages %}
+  <tr class="tbody">
+    <td>{{ b['item'] }}</td>
+    <td>{{ b['quantity'] }} {{ b['unit'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Dairy</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  {% for d in dairy %}
+  <tr>
+    <td>{{ d['item'] }}</td>
+    <td>{{ d['quantity'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Deli</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  {% for d in deli %}
+  <tr>
+    <td>{{ d['item'] }}</td>
+    <td>{{ d['quantity'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Vegetables</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  {% for v in vegetables %}
+  <tr>
+    <td>{{ v['item'] }}</td>
+    <td>{{ v['quantity'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Fruits</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  {% for f in fruits %}
+  <tr>
+    <td>{{ f['item'] }}</td>
+    <td>{{ f['quantity'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Meat</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  {% for m in meat %}
+  <tr>
+    <td>{{ m['item'] }}</td>
+    <td>{{ m['quantity'] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Dry Goods</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  <tr>
+    <td>Milk</td>
+    <td>2L</td>
+  </tr>
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Spices</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  <tr>
+    <td>Milk</td>
+    <td>2L</td>
+  </tr>
+</table>
+</div>
+<div class="overflow">
+<table class="table">
+  <tr>
+    <th colspan="2">Packaged Foods</th>
+  </tr>
+  <tr>
+    <th>Item</th>
+    <th>Quantity</th>
+  </tr>
+  <tr>
+    <td>Milk</td>
+    <td>2L</td>
+  </tr>
+</table>
+</div>
+
+{% endblock %}

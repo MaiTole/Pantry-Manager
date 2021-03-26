@@ -1,0 +1,238 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Pantry
+{% endblock %}
+
+{% block main %}
+<!-- BEVERAGE TABLE -->
+<div class="container">
+<div class="row">
+<div class="table-wrapper col-sm">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Beverages</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for b in beverages %}
+    <tr>
+      <td scope="row">{{ b['item'] }}</td>
+      <td>{{ b['quantity'] }}</td>
+      <td>{{ b['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- DAIRY TABLE -->
+<div class="table-wrapper col-sm">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Dairy</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in dairy %}
+    <tr>
+      <td scope="row">{{ d['item'] }}</td>
+      <td>{{ d['quantity'] }}</td>
+      <td>{{ d['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- DELI TABLE -->
+<div class="table-wrapper col-sm">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Deli</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in deli %}
+    <tr>
+      <td scope="row">{{ d['item'] }}</td>
+      <td>{{ d['quantity'] }}</td>
+      <td>{{ d['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- VEGETABLES TABLE -->
+<div class="container">
+<div class="row">
+<div class="table-wrapper col-sm">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Vegetables</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for v in vegetables %}
+    <tr>
+      <td scope="row">{{ v['item'] }}</td>
+      <td>{{ v['quantity'] }}</td>
+      <td>{{ v['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- FRUITS TABLE -->
+<div class="table-wrapper col-sm">
+<table class="table table-striped mytable">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Fruits</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for f in fruits %}
+    <tr>
+      <td scope="row">{{ f['item'] }}</td>
+      <td>{{ f['quantity'] }}</td>
+      <td>{{ f['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- MEAT TABLE -->
+<div class="table-wrapper col-sm">
+<table class="table table-striped mytable">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Meat</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in meat %}
+    <tr>
+      <td scope="row">{{ m['item'] }}</td>
+      <td>{{ m['quantity'] }}</td>
+      <td>{{ m['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+
+<!-- SPICES TABLE -->
+<div class="container">
+<div class="row">
+<div class="table-wrapper col-sm">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Spices</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for v in spices %}
+    <tr>
+      <td scope="row">{{ v['item'] }}</td>
+      <td>{{ v['quantity'] }}</td>
+      <td>{{ v['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- PACKAGED FOOD TABLE -->
+<div class="table-wrapper col-sm">
+<table class="table table-striped mytable">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Packaged Food</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for f in packagedfood %}
+    <tr>
+      <td scope="row">{{ f['item'] }}</td>
+      <td>{{ f['quantity'] }}</td>
+      <td>{{ f['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+<!-- DRY GOODS TABLE -->
+<div class="table-wrapper col-sm">
+<table class="table table-striped mytable">
+  <thead>
+    <tr>
+      <th scope="col" colspan="3">Dry Goods</th>
+    </tr>
+    <tr>
+      <th scope="col">Item</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for m in drygoods %}
+    <tr>
+      <td scope="row">{{ m['item'] }}</td>
+      <td>{{ m['quantity'] }}</td>
+      <td>{{ m['unit'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+{% endblock %}

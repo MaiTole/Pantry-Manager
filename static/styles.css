@@ -1,0 +1,42 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+    color: #537fbe;
+}
+
+/* Colors for brand */
+main .form-control
+{
+    /* Center form controls */
+    display: inline-block;
+
+    /* Override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* Scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* Center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* Constrain images on small screens */
+    max-width: 100%;
+}
+
+.table-wrapper
+{
+    height: 200px;
+    overflow: auto;
+    width: 100%;
+    border: dashed black 1px;
+    margin-left: 0.3%;
+    margin-bottom: 0.5%;
+
+}

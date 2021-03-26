@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add to Pantry
+{% endblock %}
+
+{% block main %}
+<form action="/recipes" method="get">
+    <div>
+        <p1>Here are some suggested recipes using ingredients in your pantry!</p1>
+    <br>
+    </div>
+    <div>
+    <table  class="table table-striped">
+        {% for d in data %}
+        <tr>
+            <td><img src={{ d['image'] }}></td>
+            <td>{{ d['title'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</form>
+{% endblock %}

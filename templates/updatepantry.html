@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add to Pantry
+{% endblock %}
+
+{% block main %}
+<p1><b>Edit</b> an existing item from your pantry!</p1>
+<br>
+<br>
+    <form action="/updatepantry" method="post">
+        <div class="form-group">
+            <select class="form-control" name="type" type="text" id="type">
+                <!-- <option value="" selected="selected">Select Type</option> -->
+                <option value="none" selected disabled hidden>Select a Type</option>
+                {% for r in userrows %}
+                <option value={{ r }}>{{ r }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="item" type="text" id="item">
+                <option name="noen" value="none" selected disabled hidden>Select an Option</option>
+                <option data-parent='SHOW' value='0'>-- Select --</option>
+                {% for bev in beverageitems %}
+                <option name="beverages">{{ bev['item'] }}  - {{ bev['quantity'] }} {{ bev['unit'] }}</option>
+                {% endfor %}
+                {% for da in dairyitems %}
+                <option name="dairy">{{ da['item'] }}  - {{ da['quantity'] }} {{ da['unit'] }}</option>
+                {% endfor %}
+                {% for de in deliitems %}
+                <option name="deli">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                {% for de in vegetableitems %}
+                <option name="vegetable">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                {% for de in fruititems %}
+                <option name="fruits">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                {% for de in meatitems %}
+                <option name="meat">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                {% for de in spiceitems %}
+                <option name="spices">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                {% for de in drygoodsitems %}
+                <option name="dry goods">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                {% for de in packagedfooditems %}
+                <option name="packaged food">{{ de['item'] }}  - {{ de['quantity'] }} {{ de['unit'] }}</option>
+                {% endfor %}
+                <!-- ADD DATA FOR ALL TYPES E.G. FRUITS, VEGGIES, MEATS ETC. -->
+            </select>
+            <script type="text/javascript">
+            $("#type").bind('change click keypress', function() {
+            $('#item option[name!='+id+']').show();
+            var id = $('#type').find(":selected").text();
+            $('#item option[name!='+id+']').hide();
+            });
+            </script>
+        </div>
+        <div>
+        </div>
+        <div>
+            <input autocomplete="off" autofocus class="form-control" name="newqty" placeholder="Update Quantity (e.g. 3)" type="number" min="0" step="any">
+        </div>
+        <br>
+
+        <button class="btn btn-primary" type="submit">Edit Entry</button>
+    </form>
+{% endblock %}

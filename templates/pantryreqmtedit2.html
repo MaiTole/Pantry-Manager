@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pantry Requirement
+{% endblock %}
+
+{% block main %}
+<p1><b>Edit</b> an existing minimum requirement for commonly used ingredients in your pantry!</p1>
+<br>
+<br>
+    <form action="/pantryreqmtedit2" method="post">
+        <div class="form-group">
+            <select class="form-control" name="typemin" id="typemin" type="text">
+                <!-- <option value="" selected="selected">Select Type</option> -->
+                <option value="none" selected disabled hidden>Select a Type</option>
+                {% for r in userrows %}
+                <option value={{ r }}>{{ r }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <select class="form-control" name="itemmin" id="itemmin" type="text">
+                <option name="noen" value="none" selected disabled hidden>Select an Option</option>
+                <option data-parent='SHOW' value='0'>-- Select --</option>
+                {% for bev in beveragemin %}
+                <option name="beverages">{{ bev['item'] }} - {{ bev['quantity'] }} {{ bev['units'] }} min. </option>
+                {% endfor %}
+                {% for da in dairymin %}
+                <option name="dairy">{{ da['item'] }} - {{ da['quantity'] }} {{ da['units'] }} min.</option>
+                {% endfor %}
+                {% for de in delimin %}
+                <option name="deli">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                {% for de in vegmin %}
+                <option name="vegetables">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                {% for de in fruitmin %}
+                <option name="fruits">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                {% for de in meatmin %}
+                <option name="meat">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                {% for de in spicemin %}
+                <option name="spice">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                {% for de in drygoodmin %}
+                <option name="dry goods">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                {% for de in packagedfoodmin %}
+                <option name="packaged food">{{ de['item'] }} - {{ de['quantity'] }} {{ de['units'] }} min.</option>
+                {% endfor %}
+                <!-- ADD DATA FOR ALL TYPES E.G. FRUITS, VEGGIES, MEATS ETC. -->
+            </select>
+            <script type="text/javascript">
+            $("#typemin").bind('change click keypress', function() {
+            $('#itemmin option[name!='+id+']').show();
+            var id = $('#typemin').find(":selected").text();
+            $('#itemmin option[name!='+id+']').hide();
+            });
+            </script>
+        </div class="form-control">
+        <div>
+            <input autocomplete="off" autofocus class="form-control" name="newqty" placeholder="New Min Quantity (e.g. 3)" type="number" min="0" step="any">
+        </div>
+        <br>
+        <button class="btn btn-primary" type="submit">Edit Requirement</button>
+    </form>
+{% endblock %}

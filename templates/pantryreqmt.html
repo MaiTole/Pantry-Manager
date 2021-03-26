@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pantry Requirement
+{% endblock %}
+
+{% block main %}
+<p1><b>Add</b> a minimum requirement for commonly used ingredients in your pantry!</p1>
+<br>
+<br>
+<form action="/pantryreqmt" method="post">
+    <div class="form-group">
+        <select class="form-control" name="typemin" type="text">
+            <option value="beverages">Beverages</option>
+            <option value="dairy">Dairy</option>
+            <option value="deli">Deli</option>
+            <option value="dry-goods">Dry Goods</option>
+            <option value="fruits">Fruits</option>
+            <option value="meat">Meat</option>
+            <option value="packaged-food">Packaged Food</option>
+            <option value="spices">Spices</option>
+            <option value="vegetables">Vegetables</option>
+        </select>
+    </div>
+    <div class="form-group">
+    <input autocomplete="off" autofocus class="form-control" name="itemmin" placeholder="Item (e.g. Milk)" type="text">
+    </div>
+    <div class="form-group">
+    <input autocomplete="off" autofocus class="form-control" name="quantitymin" placeholder="Min Required Quantity (e.g. 2)" type="number" min="0" step="any">
+    </div>
+        <div class="form-group">
+    <input autocomplete="off" autofocus class="form-control" name="unitmin" placeholder="Min Qty Unit (e.g. L)" type="text">
+    </div>
+    <button class="btn btn-primary" type="submit" id="addbutton">Add Requirements</button>
+<br>
+<br>
+</form>
+
+<p1><b>Edit</b> an existing minimum requirement for commonly used ingredients in your pantry!</p1>
+<br>
+<br>
+    <form action="/pantryreqmtedit2" method="get">
+        <div class="form-group">
+        <button class="btn btn-primary" id="editbutton" value="pressed" type="submit">Edit Requirement</button>
+        </div>
+    </form>
+{% endblock %}
