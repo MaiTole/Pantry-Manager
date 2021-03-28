@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Restock List
+{% endblock %}
+
+{% block main %}
+
+<form action="/restocklist" method="get">
+    <table>
+    {% for key,value in bevreqmt.items() %}
+    <tr>
+        <th> {{ key }} </th>
+        <td> {{ value }} </td>
+    </tr>
+    {% endfor %}
+    </table>
+</form>
+
+{% endblock %}
