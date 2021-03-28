@@ -37,3 +37,33 @@ def restocklist():
 
     ##for i in range(arrmin):
         ##if arrpantry[i] =
+
+###################
+
+@app.route("/restocklist")
+@login_required
+def restocklist():
+    ##PANTRY MIN REQUIREMENTS
+    userid = session["user_id"]
+    bevreqmt = dict()
+    rows = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item NOT IN (SELECT item FROM pantry WHERE id=:id)", id=userid)
+    for r in rows:
+        bevreqmt['item'] = r['item']
+        bevreqmt['quantity'] = r['quantity']
+        bevreqmt['unit'] = r['units']
+
+    intersection = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item IN (SELECT item FROM pantry WHERE id=:id)", id=userid)
+    for i in intersection:
+        match = db.execute("SELECT * FROM pantry WHERE id=:id AND item=:item", id=userid, item=i['item'])
+        if i['quantity'] > match[0]['quantity']:
+            #bevreqmt['item'].append(i['item'])
+            if i['units'] != match[0]['unit']:
+                bevreqmt['item'] = (i['item'])
+                bevreqmt['quantity'] = ("")
+                bevreqmt['unit'] = ("")
+            else:
+                bevreqmt['item'] = (i['item'])
+                bevreqmt['quantity'] = (i['quantity'] - match[0]['quantity'])
+                bevreqmt['unit'] = (i['units'])
+            #bevreqmt.append
+                return render_template("restocklist.html", bevreqmt=bevreqmt)

@@ -219,7 +219,7 @@ def index():
 @login_required
 def pantryreqmt():
     if request.method == "POST":
-
+        userid = session['user_id']
         typemin = request.form.get('typemin')
         quantitymin = request.form.get('quantitymin')
         itemmin = request.form.get('itemmin')
@@ -230,11 +230,16 @@ def pantryreqmt():
             return apology("Please enter only one letter/word for units")
         elif quantitymin == None:
             return apology("Please enter a valid quantity")
-        elif itemin == None:
+        elif itemmin == None:
             return apology("Please enter a valid item")
         else:
-            db.execute("INSERT INTO pantrymin (id, type, item, quantity, units) VALUES(:id, :type, :item, :quantity, :units)", id=session["user_id"], type =typemin, item=itemmin, quantity=quantitymin, units=unitmin)
-            return render_template("index.html")
+            #Check if there is already existing item
+            rows = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item=:item", id=userid, item=itemmin)
+            if len(rows) != 0:
+                return apology("Sorry, this item is already in your pantry. Use the update pantry option instead!")
+            else:
+                db.execute("INSERT INTO pantrymin (id, type, item, quantity, units) VALUES(:id, :type, :item, :quantity, :units)", id=session["user_id"], type =typemin, item=itemmin, quantity=quantitymin, units=unitmin)
+                return render_template("index.html")
     elif request.method == "GET":
         return render_template("pantryreqmt.html")
 
@@ -265,7 +270,7 @@ def pantryreqmtedit2():
         spicemin = db.execute("SELECT * FROM pantrymin WHERE id=:id AND type=:type", id=userid, type="spice")
         drygoodmin = db.execute("SELECT * FROM pantrymin WHERE id=:id AND type=:type", id=userid, type="dry goods")
         packagedfoodmin = db.execute("SELECT * FROM pantrymin WHERE id=:id AND type=:type", id=userid, type="packaged food")
-        ## ADD DATA FOR ALL TYPES E.G. FRUITS, VEGGIES, MEATS ETC.
+
         return render_template("pantryreqmtedit2.html", userrows=userrows, beveragemin=beveragemin, dairymin=dairymin, delimin=delimin, vegmin=vegmin, fruitmin=fruitmin, meatmin=meatmin, spicemin=spicemin, drygoodmin=drygoodmin, packagedfoodmin=packagedfoodmin)
 
 @app.route("/findameal", methods=["POST", "GET"])
@@ -290,6 +295,27 @@ def findameal():
         data = get(urlnew)
 
         return render_template("recipes.html", data=data)
+
+@app.route("/restocklist")
+@login_required
+def restocklist():
+    ##PANTRY MIN REQUIREMENTS
+    userid = session["user_id"]
+    bevreqmt = dict()
+    rows = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item NOT IN (SELECT item FROM pantry WHERE id=:id)", id=userid)
+    for r in rows:
+        bevreqmt[r['item']] = str(r['quantity']) + " " + r['units']
+
+    intersection = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item IN (SELECT item FROM pantry WHERE id=:id)", id=userid)
+    for i in intersection:
+        match = db.execute("SELECT * FROM pantry WHERE id=:id AND item=:item", id=userid, item=i['item'])
+        if i['quantity'] > match[0]['quantity']:
+            if i['units'] != match[0]['unit']:
+                bevreqmt[i['item']] = "(Unable to calculate due to different units)" ##(i['item'])
+            else:
+                bevreqmt[i['item']] = str(i['quantity'] - match[0]['quantity']) + " " + (i['units']) #(i['item'])
+
+    return render_template("restocklist.html", bevreqmt=bevreqmt)
 
 @app.route("/logout")
 def logout():

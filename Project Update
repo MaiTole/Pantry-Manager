@@ -21,9 +21,12 @@ Edit Min Requirement
     > Completed
 
 Recipe Search
-    > Partially complete - URL generated, but JSON needs to be translated back into readable, user-friendly data
+    > Partially complete - Pending formatting of recipe table
+    > Try to not use API directly (since is on GitHub)
 
 Shopping List
     > Not started, need to create a view for viewer to see items to stock up based on pantry min requirements
     > Propose to create a weekly email to send shopping list to user email
 
+Min Requirement
+    > Create a min requirement table to see all the pantry min
