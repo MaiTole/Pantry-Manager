@@ -8,10 +8,23 @@ from werkzeug.exceptions import default_exceptions, HTTPException, InternalServe
 from werkzeug.security import check_password_hash, generate_password_hash
 import requests
 from helpers import apology, login_required
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+#Mail setup
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = MAIL_USERNAME
+app.config['MAIL_PASSWORD'] = MAIL_PASSWORD
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 # Ensure responses aren't cached
 @app.after_request
@@ -35,14 +48,8 @@ Session(app)
 db = SQL("sqlite:///finalproj.db")
 
 # Make sure API key is set
-#if not os.environ.get("API_KEY"):
-#    raise RuntimeError("API_KEY not set")
-
-#@app.route("/", methods=["POST", "GET"])
-#@login_required
-#def index():
-#    "TODO"
-#    return render_template("index.html")
+if not os.environ.get("API_KEY"):
+    raise RuntimeError("API_KEY not set")
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -276,12 +283,17 @@ def pantryreqmtedit2():
 @app.route("/findameal", methods=["POST", "GET"])
 @login_required
 def findameal():
+    try:
+        api_key = os.environ.get("API_KEY")
+    except requests.RequestException:
+        return None
+
     if request.method == "GET":
         return render_template("findameal.html")
     else:
         ingredients = db.execute("SELECT * FROM pantry WHERE id=:id", id=session['user_id'])
         ingredlist = []
-        urlnew = "https://api.spoonacular.com/recipes/findByIngredients?apiKey=37f60b0e3dd64d389ab6dacc259cb9f5&ingredients="
+        urlnew = "https://api.spoonacular.com/recipes/findByIngredients?apiKey="+api_key+"&ingredients="
         for i in ingredients:
             ingredlist.append(i['item']+",")
         for i in ingredlist:
@@ -316,6 +328,30 @@ def restocklist():
                 bevreqmt[i['item']] = str(i['quantity'] - match[0]['quantity']) + " " + (i['units']) #(i['item'])
 
     return render_template("restocklist.html", bevreqmt=bevreqmt)
+
+@app.route("/sendemail")
+@login_required
+def sendemail():
+    userid = session["user_id"]
+    bevreqmt = dict()
+    rows = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item NOT IN (SELECT item FROM pantry WHERE id=:id)", id=userid)
+    for r in rows:
+        bevreqmt[r['item']] = str(r['quantity']) + " " + r['units']
+
+    intersection = db.execute("SELECT * FROM pantrymin WHERE id=:id AND item IN (SELECT item FROM pantry WHERE id=:id)", id=userid)
+    for i in intersection:
+        match = db.execute("SELECT * FROM pantry WHERE id=:id AND item=:item", id=userid, item=i['item'])
+        if i['quantity'] > match[0]['quantity']:
+            if i['units'] != match[0]['unit']:
+                bevreqmt[i['item']] = "(Unable to calculate due to different units)" ##(i['item'])
+            else:
+                bevreqmt[i['item']] = str(i['quantity'] - match[0]['quantity']) + " " + (i['units'])
+
+    msg = Message("Restock List",sender=MAIL_USERNAME, recipients=[MAIL_USERNAME])
+    ##msg.body=render_template('restocklist.txt')
+    msg.html = render_template('restocklistemail.html', bevreqmt=bevreqmt)
+    mail.send(msg)
+    return apology("Success!")
 
 @app.route("/logout")
 def logout():

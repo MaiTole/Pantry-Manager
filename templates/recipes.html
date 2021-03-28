@@ -7,7 +7,7 @@
 {% block main %}
 <form action="/recipes" method="get">
     <div>
-        <p1>Here are some suggested recipes using ingredients in your pantry!</p1>
+        <h5>Here are some suggested recipes using ingredients in your pantry!</h5>
     <br>
     </div>
     <div>
@@ -15,7 +15,7 @@
         {% for d in data %}
         <tr>
             <td><img src={{ d['image'] }}></td>
-            <td>{{ d['title'] }}</td>
+            <td vertical-align="middle" text-align="center" style="font-size:20px">{{ d['title'] }}</td>
         </tr>
         {% endfor %}
     </table>

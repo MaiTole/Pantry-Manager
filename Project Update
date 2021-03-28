@@ -21,12 +21,12 @@ Edit Min Requirement
     > Completed
 
 Recipe Search
-    > Partially complete - Pending formatting of recipe table
-    > Try to not use API directly (since is on GitHub)
+    > Completed
+    > Optional to format further (unable to filter by meal type)
 
 Shopping List
-    > Not started, need to create a view for viewer to see items to stock up based on pantry min requirements
-    > Propose to create a weekly email to send shopping list to user email
+    > Completed, code seems to work OK
+    > Email created (Need to direct to user email, currently user email is fake hence using sender email)
 
 Min Requirement
     > Create a min requirement table to see all the pantry min
