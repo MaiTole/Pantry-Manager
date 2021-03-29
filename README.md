@@ -1,5 +1,5 @@
 
-#### PANTRY MANAGER APP
+# PANTRY MANAGER APP
 #### Video Demo:  <URL TBD>
 #### Description:
 
