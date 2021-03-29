@@ -3,8 +3,7 @@
 #### Video Demo:  <URL TBD>
 #### Description:
 
-This is a pantry manager app, designed as part of the Final Project submission for the the Harvard CS50x course. The web app is
-a pantry manager app.
+This is a pantry manager app, designed as part of the Final Project submission for the the Harvard CS50x course.
 
 # Usage:
 
